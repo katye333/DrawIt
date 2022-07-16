@@ -4,6 +4,9 @@ import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -83,6 +86,8 @@ class MainActivity : AppCompatActivity() {
         ibGallery.setOnClickListener {
             requestStoragePermission()
         }
+
+        val ibSave : ImageButton = findViewById(R.id.ib_save)
     }
 
     private fun requestStoragePermission() {
@@ -152,5 +157,24 @@ class MainActivity : AppCompatActivity() {
                     _ -> dialog.dismiss()
             }
         builder.create().show()
+    }
+
+    // Combine all things
+    private fun getBitmapFromView(view: View) : Bitmap {
+        val returnedBitmap = Bitmap.createBitmap(view.width,
+            view.height, Bitmap.Config.ARGB_8888)
+
+        val canvas = Canvas(returnedBitmap)
+        val bgDrawable = view.background
+
+        if (bgDrawable != null) {
+            bgDrawable.draw(canvas)
+        }
+        else {
+            canvas.drawColor(Color.WHITE)
+        }
+
+        view.draw(canvas)       // Finalize the canvas
+        return returnedBitmap
     }
 }
