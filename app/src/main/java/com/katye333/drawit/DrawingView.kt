@@ -3,6 +3,7 @@ package com.katye333.drawit
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 
@@ -33,7 +34,7 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         mDrawPaint!!.strokeCap = Paint.Cap.ROUND
 
         mCanvasPaint = Paint(Paint.DITHER_FLAG)
-        mBrushSize = 20.toFloat()
+        // mBrushSize = 20.toFloat()    // mBrushSize will now be set in the MainActivity
     }
 
     // Extending the View class
@@ -93,6 +94,14 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
 
         invalidate()
         return true
+    }
+
+    // Set the brush size based on the screen size
+    fun setSizeForBrush(newSize: Float) {
+        mBrushSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                            newSize, resources.displayMetrics)
+
+        mDrawPaint!!.strokeWidth = mBrushSize
     }
 
     internal inner class CustomPath(var color: Int,
