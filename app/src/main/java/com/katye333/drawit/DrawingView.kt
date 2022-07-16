@@ -18,9 +18,18 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
     private var mBrushSize : Float = 0.toFloat()
     private var color = Color.BLACK
     private val mPaths = ArrayList<CustomPath>()
+    private val mUndoPaths = ArrayList<CustomPath>()
 
     init {
         setupDrawing()
+    }
+
+    fun onClickUndo() {
+        if (mPaths.size > 0) {
+            // Add the item that is being removed from mPaths
+            mUndoPaths.add(mPaths.removeAt(mPaths.size - 1))
+            invalidate()    // Forces redraw of app
+        }
     }
 
     private fun setupDrawing() {
