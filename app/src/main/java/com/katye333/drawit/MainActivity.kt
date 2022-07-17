@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         drawingView?.setSizeForBrush(20.toFloat())  // Setup brush size based on dimensions
 
         val linearLayoutPaintColors = findViewById<LinearLayout>(R.id.ll_paint_colors)
-        mImageButtonCurrentPaint = linearLayoutPaintColors[1] as ImageButton
+        mImageButtonCurrentPaint = linearLayoutPaintColors[0] as ImageButton
         mImageButtonCurrentPaint!!.setImageDrawable(
             ContextCompat.getDrawable(this, R.drawable.pallet_pressed)
         )
